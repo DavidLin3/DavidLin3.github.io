@@ -19,10 +19,14 @@ tags:
 *什么是数据库事务？*
 
 数据库事务特性（ACID）：
-    - 原子性（Atomicity）：事务作为一个整体被执行，包含在其中的对数据库的操作要么全部被执行，要么都不执行。
-    - 一致性（Consistency）：事务应确保数据库的状态从一个一致状态转变为另一个一致状态。一致状态的含义是数据库中的数据应满足完整性约束。
-    - 隔离性（Isolation）：多个事务并发执行时，一个事务的执行不应影响其它事务的执行。
-    - 持久性（Durability）：一个事务一旦提交，它对数据库的修改应该永久保存在数据库中。
+
+- 原子性（Atomicity）：事务作为一个整体被执行，包含在其中的对数据库的操作要么全部被执行，要么都不执行。
+
+- 一致性（Consistency）：事务应确保数据库的状态从一个一致状态转变为另一个一致状态。一致状态的含义是数据库中的数据应满足完整性约束。
+
+- 隔离性（Isolation）：多个事务并发执行时，一个事务的执行不应影响其它事务的执行。
+
+- 持久性（Durability）：一个事务一旦提交，它对数据库的修改应该永久保存在数据库中。
 
 
 ---
@@ -52,7 +56,9 @@ except Exception as e:
 ## 注意事项
 
 
-1. 给execute函数传参推荐采用绑定变量（bind variables）的方式，不推荐采用格式化query语句的方式。
+### 1. 避免格式化query语句
+
+给execute函数传参推荐采用绑定变量（bind variables）的方式，不推荐采用格式化query语句的方式。
 
 因为格式化query语句的方式需要提前对某些特殊字符转义（escape），如下所示：
 
@@ -69,7 +75,9 @@ cursor.execute(query)
 并且该方式无法采用executemany函数，效率上大打折扣。
 
 
-2. 采用绑定变量的方式，无需提前转义，在execute函数中自动转义，只需提供query语句和多个变量值组成的tuple作为参数传入execute函数， 如下所示：
+### 2. 绑定变量的实现
+
+采用绑定变量的方式，无需提前转义，在execute函数中自动转义，只需提供query语句和多个变量值组成的tuple作为参数传入execute函数， 如下所示：
 
 ```python
 ...
@@ -96,7 +104,9 @@ cursor.executemany(query, args)
 综上，采用绑定变量而不是格式化query语句，是更好的实践方式。
 
 
-3. execute是I/O操作，大批量执行很耗时，可采用gevent库，执行异步操作，提升效率。
+### 3. 异步执行execute语句
+ 
+execute是I/O操作，大批量执行很耗时，可采用gevent库，执行异步操作，提升效率。
 
 execute执行命令应放入gevent.queue中，否则*gevent killed greenlet causes pymysql to continue on the broken connection*，导致异常RuntimeError: reentrant call inside <_io.BufferedReader> exception thrown。
 
@@ -104,11 +114,11 @@ execute执行命令应放入gevent.queue中，否则*gevent killed greenlet caus
 ## 参考资料
 
 > [彻底理解数据库事务](https://www.hollischuang.com/archives/898)
-
+>
 > [How can I escape the input to a MySQL db in Python3?](https://stackoverflow.com/questions/11363335/how-can-i-escape-the-input-to-a-mysql-db-in-python3)
-
+>
 > [利用python 实现快速插入300万行数据](https://blog.51cto.com/haowen/2139510)
-
+>
 > [RuntimeError: reentrant call inside <_io.BufferedReader> exception thrown](https://github.com/PyMySQL/PyMySQL/issues/260)
-
+>
 > Python Cookbook, 3th, page 197
