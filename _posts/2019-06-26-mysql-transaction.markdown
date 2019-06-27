@@ -4,7 +4,7 @@ title:      "MySQL事务及注意事项"
 subtitle:   "MySQL transaction and notes"
 date:       2019-06-26 15:30:00
 author:     "David"
-header-img: "img/mysql.png"
+header-img: "img/home-bg-o.jpg"
 tags:
     - MySQL
 ---
@@ -116,5 +116,5 @@ execute执行命令应放入gevent.queue中，否则*gevent killed greenlet caus
 1. [彻底理解数据库事务](https://www.hollischuang.com/archives/898)
 2. [How can I escape the input to a MySQL db in Python3?](https://stackoverflow.com/questions/11363335/how-can-i-escape-the-input-to-a-mysql-db-in-python3)
 3. [利用python 实现快速插入300万行数据](https://blog.51cto.com/haowen/2139510)
-4. [RuntimeError: reentrant call inside <_io.BufferedReader> exception thrown](https://github.com/PyMySQL/PyMySQL/issues/260)
+4. [PyMySQL RuntimeError](https://github.com/PyMySQL/PyMySQL/issues/260)
 5. Python Cookbook, 3th, page 197
