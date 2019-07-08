@@ -6,7 +6,7 @@ date:       2019-06-26 15:30:00
 author:     "David"
 header-img: "img/home-bg-o.jpg"
 tags:
-    - MySQL
+    - Database
 ---
 
 > “温故而知新”
