@@ -17,12 +17,17 @@ scrapy框架自身不支持分布式，需要借助scrapy-redis。scrapy-redis�
 
 
 ### scrapy-redis用法
-    - 在master机器上安装redis
-    - 在scrapy爬虫机器（slaver）上安装scrapy-redis，命令为：
+
+- 在master机器上安装redis
+
+- 在scrapy爬虫机器（slaver）上安装scrapy-redis，命令为：
+
 ```python
 pip install scrapy-redis
 ```
-    - 在settings.py中进行如下设置，任务调度工作scrapy-redis已经帮我们实现了
+
+- 在settings.py中进行如下设置，任务调度工作scrapy-redis已经帮我们实现了
+
 ```python
 # settings.py
 
@@ -57,7 +62,8 @@ SCHEDULER_QUEUE_CLASS = "scrapy_redis.queue.PriorityQueue"
 # 后进先出队列：
 # SCHEDULER_QUEUE_CLASS = "scrapy_redis.queue.LifoQueue"
 ```
-    - 在每个爬虫机器（slaver）上启动scrapy即可。
+
+- 在每个爬虫机器（slaver）上启动scrapy即可。
 
 
 ### scrapyd实现分布式部署
