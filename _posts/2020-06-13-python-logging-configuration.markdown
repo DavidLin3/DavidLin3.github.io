@@ -50,23 +50,29 @@ LogRecord承载了日志具体内容，由logger生成。log filter起过滤日�
 import logging
 
 # 生成logger，指定logger name和level
+
 logger = logging.getLogger('simple_example')
 logger.setLevel(logging.DEBUG)
 
 # 生成console handler，指定level为debug
+
 ch = logging.StreamHandler()
 ch.setLevel(logging.DEBUG)
 
 # 生成formatter
+
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 # 给ch添加formatter
+
 ch.setFormatter(formatter)
 
 # 给logger添加ch
+
 logger.addHandler(ch)
 
 # 应用的代码
+
 logger.debug('debug message')
 logger.info('info message')
 logger.warning('warn message')
@@ -167,14 +173,19 @@ logger.info('Hello World')
 
 这种logging配置和使用方法将配置和调用过程解耦合，很适合项目的使用。
 
-如果识别**外部的Python对象**<sup>[6]</sup>呢？如：sys.stderr。在YAML这类文本文件中，没办法直接区分sys.stderr和"sys.stderr"。为了帮助区分，在sys.stderr加上前缀"ext://"，后续logging的配置系统会识别该前缀，然后把sys.stderr作为Python对象导入。
+如何识别**外部的Python对象**<sup>[6]</sup>呢？如：sys.stderr。在YAML这类文本文件中，没办法直接区分sys.stderr和"sys.stderr"。为了帮助区分，在sys.stderr加上前缀"ext://"，后续logging的配置系统会识别该前缀，然后把sys.stderr作为Python对象导入。
 
 
 ## 参考
 
 [1] [Logging Flow](https://docs.python.org/3/howto/logging.html?#logging-flow)
+
 [2] [Configuring Logging](https://docs.python.org/3/howto/logging.html?#configuring-logging)
+
 [3] [Configuration dictionary schema](https://docs.python.org/3/library/logging.config.html#logging-config-dictschema)
+
 [4] [User-defined objects](https://docs.python.org/3/library/logging.config.html#user-defined-objects)
+
 [5] [Configuration functions](https://docs.python.org/3/library/logging.config.html#logging.config.dictConfig)
+
 [6] [Access to external objects](https://docs.python.org/3/library/logging.config.html#access-to-external-objects)
